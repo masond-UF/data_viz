@@ -127,5 +127,3 @@ ggplot()+
 
 str(plot_locations_HARV_spatial)
 str(plot_locations_HARV)
-# Make a raster map of Ordway-Swisher ####
-# Turn CSV into spatial file ####
