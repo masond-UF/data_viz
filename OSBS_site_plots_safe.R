@@ -161,7 +161,8 @@ Florida_inset <- ggplot() +
   coord_fixed(1.2)
 
 final_map <- general_map4 +
-  annotation_custom(grob = ggplotGrob(Florida_inset),
+  annotation_custom(grob = ggplotGrob(Florida_inset), 
+                    # base plot of code for the map?
     xmin = -82.005, xmax = -82.042,
     ymin = 29.68, ymax = 29.78)
 
