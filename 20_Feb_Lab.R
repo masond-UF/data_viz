@@ -49,3 +49,20 @@ ggplot()+
 	geom_raster(data = chm_harv_dis_df, aes(x = x, y = y, fill = layer))+
 	scale_fill_viridis_c()+
 	coord_quickmap()
+# What are we doing ? ####
+aoi_harv <- st_read("HARV/HarClip_UTMZ18.shp")
+st_geometry_type(aoi_harv)
+st_crs(aoi_harv)
+
+CHM_HARV_cropped <- crop(x = chm_ov_harv, y = as(aoi_harv), "Spatial")
+
+# its not working, lets look deeper
+st_bbox(aoi_harv)
+
+
+# HOMEWORK ####
+# any relaitonship between EVI and height/sum BA
+# extract EVI values and run a linear model
+# use crop to get a new cropped raster
+# to get values from 
+tree_height <- raster::extract(x = chm_harv, y = as(aoi_harv, "Spatial"), df = TRUE)
