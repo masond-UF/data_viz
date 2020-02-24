@@ -6,6 +6,7 @@ library(rgdal)
 library(sf) # not sure if this is necessary
 library(ggmap) # to get a Google satelitte map
 library(ggspatial)
+library(cowplot)
 
 # load the NEON shapefiles
 sample_bounds <- readOGR(dsn="Data_OSBS_site_plots/fieldSamplingBoundaries", layer="terrestrialSamplingBoundaries")
@@ -169,4 +170,5 @@ final_map <- general_map4 +
 pdf("OSBS_tick_veg_together_terrain.pdf")
 final_map
 dev.off()
+
 
