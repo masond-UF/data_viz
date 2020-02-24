@@ -103,6 +103,11 @@ ggplot()+
 	theme(plot.title = element_text(hjust = 0.5))+
 	theme(text = element_text(size=15))+
 	theme(axis.text.x = element_text(angle = 90))+
+	annotation_scale(location = "bl", width_hint = 0.5, pad_y = unit(0.2, "in"),
+									 pad_x = unit(0.15, "in"))+
+	annotation_north_arrow(location = "bl", which_north = "true", 
+												 pad_x = unit(0.55, "in"), pad_y = unit(0.4, "in"),
+												 style = north_arrow_orienteering)+
 	coord_sf()
 
 # Save the plot
@@ -113,3 +118,28 @@ ggsave("ordway_EVI.png", plot = ordway_EVI, width = 700, height = 700,
 OSBS_sites$EVI <- raster::extract(EVI_rast, OSBS_sites, weights=FALSE, fun=median)
 # Merge data 
 OSBS_EVI_veg <- inner_join(OSBS_sites, veg_struct_filt,  by = "plotID")
+
+OSBS_EVI_veg$plotID <- recode(OSBS_EVI_veg$plotID, "OSBS_028" = "OSBS 28", 
+														"OSBS_030" = "OSBS 30",
+														"OSBS_035" = "OSBS 35",
+														"OSBS_037" = "OSBS 37",
+														"OSBS_038" = "OSBS 38",
+														"OSBS_041" = "OSBS 41")
+
+basal <- ggplot(data = OSBS_EVI_veg, aes(x = EVI, y = basal_sum, label = plotID))+
+	geom_point(col = "orange", size = 6)+
+	xlab("")+
+	ylab(expression("Total basal area " (cm^2)))+
+	theme_bw()+
+	geom_text_repel(box.padding = 0.40, point.padding = 0.3, segment.alpha = 0)+
+	theme(text = element_text(size = 20))
+
+height <- ggplot(data = OSBS_EVI_veg, aes(x = EVI, y = height_median, label = plotID))+
+	geom_point(col = "dark green", size = 6)+
+	xlab("Median Enhanced Vegetation Index")+
+	ylab("Total basal area (m)")+
+	theme_bw()+
+	geom_text_repel(box.padding = 0.40, point.padding = 0.3, segment.alpha = 0)+
+	theme(text = element_text(size = 20))
+
+	
