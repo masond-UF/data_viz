@@ -59,7 +59,6 @@ CHM_HARV_cropped <- crop(x = chm_ov_harv, y = as(aoi_harv), "Spatial")
 # its not working, lets look deeper
 st_bbox(aoi_harv)
 
-
 # HOMEWORK ####
 # any relaitonship between EVI and height/sum BA
 # extract EVI values and run a linear model
