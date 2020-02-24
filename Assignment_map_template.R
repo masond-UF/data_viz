@@ -89,7 +89,7 @@ OSBS_sites <- st_transform(OSBS_sites, crs_common)
 ################### Plot all information together (raster + vector) ########################### 
 # Plot
 
-ggplot()+
+map <- ggplot()+
 	geom_raster(data = EVI_df_cat, aes(x = x, y = y, fill = EVI_cat))+
 	labs(fill='EVI Categories')+
 	scale_fill_viridis_d()+
@@ -103,11 +103,12 @@ ggplot()+
 	theme(plot.title = element_text(hjust = 0.5))+
 	theme(text = element_text(size=15))+
 	theme(axis.text.x = element_text(angle = 90))+
-	annotation_scale(location = "bl", width_hint = 0.5, pad_y = unit(0.2, "in"),
-									 pad_x = unit(0.15, "in"))+
+	annotation_scale(location = "bl", width_hint = 0.5, pad_y = unit(0.75, "in"),
+									 pad_x = unit(0.5, "in"), aes(text_col = "white"))+
 	annotation_north_arrow(location = "bl", which_north = "true", 
-												 pad_x = unit(0.55, "in"), pad_y = unit(0.4, "in"),
-												 style = north_arrow_orienteering)+
+												 pad_x = unit(1.95, "in"), pad_y = unit(1, "in"),
+												 style = north_arrow_nautical(text_col = "white"))+
+	theme(legend.position="top")
 	coord_sf()
 
 # Save the plot
@@ -142,4 +143,7 @@ height <- ggplot(data = OSBS_EVI_veg, aes(x = EVI, y = height_median, label = pl
 	geom_text_repel(box.padding = 0.40, point.padding = 0.3, segment.alpha = 0)+
 	theme(text = element_text(size = 20))
 
-	
+figs <- plot_grid(basal, height, ncol = 1, align = "v")
+final <- plot_grid(map,figs)
+
+ggsave("Ordway_final_map.jpg", final, width = 20, height = 10, units = "in", dpi = 300)
