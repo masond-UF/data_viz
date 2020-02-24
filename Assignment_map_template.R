@@ -3,7 +3,10 @@
 library(rgdal)
 library(raster)
 library(tidyverse)
+library(ggspatial)
+library(ggrepel)
 library(sf)
+library(tidyverse)
 ################ Read in the shapefile ####################
 # Read in the NEON shapefile
 NEON_sites <- st_read("Assignment_files/Shapefiles/All_Neon_TOS_Polygons_V5/All_Neon_TOS_Polygons_V5.shp")
@@ -106,5 +109,7 @@ ggplot()+
 ggsave("ordway_EVI.png", plot = ordway_EVI, width = 700, height = 700, 
 			 units = "mm", dpi = 300)
 
-
-
+# Extract values
+OSBS_sites$EVI <- raster::extract(EVI_rast, OSBS_sites, weights=FALSE, fun=median)
+# Merge data 
+OSBS_EVI_veg <- inner_join(OSBS_sites, veg_struct_filt,  by = "plotID")
