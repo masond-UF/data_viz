@@ -89,7 +89,7 @@ OSBS_sites <- st_transform(OSBS_sites, crs_common)
 ################### Plot all information together (raster + vector) ########################### 
 # Plot
 
-map <- ggplot()+
+ggplot()+
 	geom_raster(data = EVI_df_cat, aes(x = x, y = y, fill = EVI_cat))+
 	labs(fill='EVI Categories')+
 	scale_fill_viridis_d()+
@@ -147,3 +147,21 @@ figs <- plot_grid(basal, height, ncol = 1, align = "v")
 final <- plot_grid(map,figs)
 
 ggsave("Ordway_final_map.jpg", final, width = 20, height = 10, units = "in", dpi = 300)
+
+# gradient
+
+ggplot()+
+	geom_raster(data = EVI_df_cat, aes(x = x, y = y, fill = EVI_cat))+
+	labs(fill='EVI Categories')+
+	scale_fill_manual(values = c("red", "blue", "green"))+
+	geom_sf(data=OSBS_sites)+
+	geom_sf(data=veg_struct_sf,  aes(fill = height_median))+
+	scale_color_gradient2()+ #how do you set two colors?
+	ggtitle("Ordway—Swisher Biological Station")+
+	xlab("Longitude")+
+	ylab("Latitude")+
+	theme_classic()+
+	theme(plot.title = element_text(hjust = 0.5))+
+	theme(text = element_text(size=15))+
+	theme(axis.text.x = element_text(angle = 90))+
+	coord_sf()
