@@ -9,6 +9,7 @@ library(sf)
 library(tidyverse)
 library(viridis)
 library(RColorBrewer)
+library(ggsci)
 ################ Read in the shapefile ####################
 # Read in the NEON shapefile
 NEON_sites <- st_read("Assignment_files/Shapefiles/All_Neon_TOS_Polygons_V5/All_Neon_TOS_Polygons_V5.shp")
@@ -113,12 +114,16 @@ ggplot()+
 	theme(legend.position="top")
 	coord_sf()
 
+# Make PDF smaller, text gets bigger
 # Save the plot
 ggsave("ordway_EVI.png", plot = ordway_EVI, width = 700, height = 700, 
 			 units = "mm", dpi = 300)
 
+# she did the crop to make sure things were overlaying
+
 # Extract values
 OSBS_sites$EVI <- raster::extract(EVI_rast, OSBS_sites, weights=FALSE, fun=median)
+
 # Merge data 
 OSBS_EVI_veg <- inner_join(OSBS_sites, veg_struct_filt,  by = "plotID")
 
@@ -152,12 +157,11 @@ ggsave("Ordway_final_map.jpg", final, width = 20, height = 10, units = "in", dpi
 
 # Correct plot for assignment 3#####
 ggplot()+
-	geom_raster(data = EVI_df_cat, aes(x = x, y = y, fill = EVI_cat))+
-	labs(fill='EVI Categories')+
-	scale_fill_viridis_d()+
-	geom_sf(data=OSBS_sites)+
+	geom_raster(data = EVI_df_cat, aes(x = x, y = y, fill = EVI_cat, alpha = 0.8))+
+	scale_fill_viridis_d(name = "EVI", direction = -1)+
+	geom_sf(data=OSBS_sites, fill = NA, color = "black")+
 	geom_sf(data=veg_struct_sf,  aes(color = height_median))+
-	scale_color_gradientn(colors =  brewer.pal(6, "Reds"))+ 
+	scale_color_gradientn(colors =  brewer.pal(6, "Greys"))+ 
 	ggtitle("Ordway—Swisher Biological Station")+
 	xlab("Longitude")+
 	ylab("Latitude")+
@@ -165,6 +169,6 @@ ggplot()+
 	theme(plot.title = element_text(hjust = 0.5))+
 	theme(text = element_text(size=15))+
 	theme(axis.text.x = element_text(angle = 90))+
-	coord_sf()
+	coord_sf(expand = FALSE)
 
 
