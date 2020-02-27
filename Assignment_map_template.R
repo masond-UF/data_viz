@@ -7,6 +7,8 @@ library(ggspatial)
 library(ggrepel)
 library(sf)
 library(tidyverse)
+library(viridis)
+library(RColorBrewer)
 ################ Read in the shapefile ####################
 # Read in the NEON shapefile
 NEON_sites <- st_read("Assignment_files/Shapefiles/All_Neon_TOS_Polygons_V5/All_Neon_TOS_Polygons_V5.shp")
@@ -148,15 +150,14 @@ final <- plot_grid(map,figs)
 
 ggsave("Ordway_final_map.jpg", final, width = 20, height = 10, units = "in", dpi = 300)
 
-# gradient
-
+# Correct plot for assignment 3#####
 ggplot()+
 	geom_raster(data = EVI_df_cat, aes(x = x, y = y, fill = EVI_cat))+
 	labs(fill='EVI Categories')+
-	scale_fill_manual(values = c("red", "blue", "green"))+
+	scale_fill_viridis_d()+
 	geom_sf(data=OSBS_sites)+
-	geom_sf(data=veg_struct_sf,  aes(fill = height_median))+
-	scale_color_gradient2()+ #how do you set two colors?
+	geom_sf(data=veg_struct_sf,  aes(color = height_median))+
+	scale_color_gradientn(colors =  brewer.pal(6, "Reds"))+ 
 	ggtitle("Ordway—Swisher Biological Station")+
 	xlab("Longitude")+
 	ylab("Latitude")+
@@ -165,3 +166,5 @@ ggplot()+
 	theme(text = element_text(size=15))+
 	theme(axis.text.x = element_text(angle = 90))+
 	coord_sf()
+
+
