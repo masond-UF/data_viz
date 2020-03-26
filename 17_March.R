@@ -2,7 +2,7 @@
 library(data.table) 
 library(tidyverse)
 library(lubridate)
-# Bring i the data ####
+# Bring in the data ####
 system.time(read.csv("PLOT.csv", header = TRUE, stringsAsFactors = FALSE))
 system.time(read_csv("PLOT.csv"))
 system.time(fread("PLOT.csv"))
