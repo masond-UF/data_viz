@@ -20,17 +20,19 @@ NRI <- rasterGrob(readJPEG('NRI.jpg'))
 
 
 ggplot(data.frame(a=1)) + xlim(1, 30) + ylim(1, 30)+ 
-	annotation_custom(decomp, xmin = 13, xmax = 16, ymin = 24, ymax = 30)+
-	annotation_custom(PY, xmin = 10, xmax = 13, ymin = 18, ymax = 21)+
-	annotation_custom(PD, xmin = 13, xmax = 16, ymin = 18, ymax = 21)+
-	annotation_custom(ND, xmin = 16, xmax = 19, ymin = 18, ymax = 21)+
-	geom_rect(aes(xmin = 10, xmax = 19, ymin = 18, ymax = 21.5),
+	annotation_custom(decomp, xmin = 4, xmax = 9, ymin = 23, ymax = 29)+
+	annotation_custom(fact1, xmin = 13, xmax = 20, ymin = 21, ymax = 28)+
+	annotation_custom(fact2, xmin = 21, xmax = 29, ymin = 22, ymax = 26)+
+	annotation_custom(PY, xmin = 3, xmax = 5, ymin = 13, ymax = 18)+
+	annotation_custom(PD, xmin = 6, xmax = 8, ymin = 13, ymax = 18)+
+	annotation_custom(ND, xmin = 9, xmax = 11, ymin = 13, ymax = 18)+
+	geom_rect(aes(xmin = 2, xmax = 12, ymin = 13.5, ymax = 18),
 	fill = "transparent", color = "gray", size = 0.5, linejoin = "round")+
-	annotation_custom(base, xmin = 22, xmax = 26, ymin = 9, ymax = 12)+
-	annotation_custom(plant1, xmin = 21.5, xmax = 23, ymin = 10, ymax = 15)+
-	annotation_custom(plant2, xmin = 23, xmax = 25, ymin = 11, ymax = 14)+
-	annotation_custom(plant3, xmin = 24.5, xmax = 26.5, ymin = 11, ymax = 16.5)+
-	annotation_custom(NRI, xmin = 2, xmax = 13, ymin = 2, ymax = 16)+
+	#annotation_custom(base, xmin = 4, xmax = 8, ymin = 3, ymax = 6)+
+	annotation_custom(plant1, xmin = 2.5, xmax = 5.5, ymin = 3, ymax = 9)+
+	annotation_custom(plant2, xmin = 6, xmax = 9, ymin = 2, ymax = 8)+
+	annotation_custom(plant3, xmin = 9.5, xmax = 12.5, ymin = 2, ymax = 8)+
+	annotation_custom(NRI, xmin = 18, xmax = 29, ymin = 0, ymax = 15)+
 	theme_classic()
 
 
