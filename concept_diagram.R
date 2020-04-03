@@ -16,6 +16,7 @@ plant2 <- rasterGrob(readJPEG('plant2.jpg'))
 plant3 <- rasterGrob(readJPEG('plant3.jpg'))
 fact1 <- rasterGrob(readJPEG('factorial1.jpg'))
 fact2 <- rasterGrob(readJPEG('factorial2.jpg'))
+NRI <- rasterGrob(readJPEG('NRI.jpg'))
 
 
 ggplot(data.frame(a=1)) + xlim(1, 30) + ylim(1, 30)+ 
@@ -29,6 +30,7 @@ ggplot(data.frame(a=1)) + xlim(1, 30) + ylim(1, 30)+
 	annotation_custom(plant1, xmin = 21.5, xmax = 23, ymin = 10, ymax = 15)+
 	annotation_custom(plant2, xmin = 23, xmax = 25, ymin = 11, ymax = 14)+
 	annotation_custom(plant3, xmin = 24.5, xmax = 26.5, ymin = 11, ymax = 16.5)+
+	annotation_custom(NRI, xmin = 2, xmax = 13, ymin = 2, ymax = 16)+
 	theme_classic()
 
 
